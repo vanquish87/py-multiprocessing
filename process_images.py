@@ -20,6 +20,7 @@ t1 = time.perf_counter()
 size = (300, 400)
 
 
+# Finished in 9.688629299998865 seconds
 for img_name in img_names:
     img = Image.open(dir + "\\" + img_name)
 
