@@ -7,18 +7,20 @@ start = time.perf_counter()
 def do_something(seconds):
     print(f'Sleeping {seconds} seconds.....')
     time.sleep(seconds)
-    return 'done sleeping...'
+    return f'done sleeping {seconds} ...'
 
-
+# see in which sequence processes are called and returned
 if __name__ == '__main__': 
+
+    # i have 12 cores so to check how they are used and free up
+    seconds = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
     # using with context manager
     with concurrent.futures.ProcessPoolExecutor() as executer:
-        # submit method return future object by keep checking on it
-        f1 = executer.submit(do_something, 1)
-        f2 = executer.submit(do_something, 1)
-        print(f1.result())
-        print(f2.result())
+        results = [executer.submit(do_something, sec) for sec in seconds]
+
+        for f in concurrent.futures.as_completed(results):
+            print(f.result())
 
     finish = time.perf_counter()
 
