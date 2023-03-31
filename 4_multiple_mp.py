@@ -1,3 +1,5 @@
+# Join method to run process ek saath without skipping them to the end
+
 import time
 import multiprocessing
 
@@ -9,11 +11,15 @@ def do_something():
     time.sleep(1)
     print('done sleeping')
 
-p1 = multiprocessing.Process(target=do_something)
-p2 = multiprocessing.Process(target=do_something)
+processes = []
 
-p1.start()
-p2.start()
+for _ in range(10):
+    p = multiprocessing.Process(target=do_something)
+    p.start()
+    processes.append(p)
+
+for process in processes:
+    process.join()
 
 finish = time.perf_counter()
 
