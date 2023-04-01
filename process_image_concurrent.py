@@ -7,17 +7,14 @@ def image_names(directory_path):
     # use os.listdir() to get a list of all files in the directory
     files = os.listdir(directory_path)
 
-    file_list = [file for file in files]
-
-    return file_list
+    return [file for file in files]
 
 
 dir = r"C:\jimmy\py-multiprocessing\unsplash-pics"
 img_names = image_names(dir)
+size = (300, 400)
 
 t1 = time.perf_counter()
-
-size = (300, 400)
 
 
 def process_image(img_name):
